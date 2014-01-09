@@ -8,15 +8,8 @@
 
 #import "Hub.h"
 #import "Distributor.h"
-// **TEST**
+#import "Factory.h"
 #import "ConsumerUnit.h"
-
-@interface Hub () {
-  //**TEST**
-  ConsumerUnit *CU1;
-}
-
-@end
 
 @implementation Hub
 
@@ -30,39 +23,50 @@
     
     // Hub is the delegate of locationManager. LocationManager informs Hub of update
     // of deltapoints. Hub passes data to Distributor.
-    // LocationManager informs Hub of didStopUpdating and informs the MainViewController.
+    // LocationManager informs Hub of didStopUpdating and Hub informs the MainViewController.
     _locationManager.delegate = self;
     
     if (_distributor == nil) {
       _distributor = [[Distributor alloc] init];
     }
-  
-    //**TEST**
-    CU1 = [[ConsumerUnit alloc] initWithRatioN:1 ratioE:5 ratioS:3 ratioW:1];
+    
+    factory = [[Factory alloc] init];
+    
+    [factory createRandomConsumerUnits:1];
+    for (int i = 0; i < 1; i++) {
+      ConsumerUnit * CU = factory.ConsumerUnits[i];
+      for (int n = 0; n <4; n++) {
+        NSLog(@"CU %i ratio %i: %@", i ,i , CU.ratios[n]);
+      }
+    }
   }
   return  self;
 }
 
+//**TEST**
 -(void) nextTurn {
-  _distributor.gamepointNInt -= CU1.ratioN;
-  _distributor.gamepointN = [NSNumber numberWithInt:_distributor.gamepointNInt];
+  for (ConsumerUnit * CU in factory.ConsumerUnits) {
+    for (int n = 0; n < 4; n++) {
+      int gamepoint =[_distributor.gamepoints[n] intValue];
+      // check if gamepoint is high enough for deduction of consumer ratio.
+      if (gamepoint >= [CU.ratios[n] intValue]) {
+        gamepoint -= [CU.ratios[n] intValue];
+        _distributor.gamepoints[n] = [NSNumber numberWithInt:gamepoint];
+      } else {
+        NSLog(@"Not enough gamepoint %i", n);
+        [CU reduceHealth:[CU.ratios[n] intValue]];
+      }
+    }    
+  }
   
-   _distributor.gamepointEInt -= CU1.ratioE;
-  _distributor.gamepointE = [NSNumber numberWithInt:_distributor.gamepointEInt];
-  
-   _distributor.gamepointSInt -= CU1.ratioS;
-  _distributor.gamepointS = [NSNumber numberWithInt:_distributor.gamepointSInt];
-  
-  _distributor.gamepointWInt -= CU1.ratioW;
-  _distributor.gamepointW = [NSNumber numberWithInt:_distributor.gamepointWInt];
-  
+  [factory checkHealthCUs];
   [self.delegate didUpdateGamepoints];
 }
-
+//**END TEST**
 
 #pragma mark delegation methods
 -(void) didUpdateDeltapoint {
-  [_distributor deltapointConversion:_locationManager.deltaPoint];
+  [_distributor deltapointConversion:_locationManager.deltapoint];
   [self.delegate didUpdateGamepoints];
 }
 

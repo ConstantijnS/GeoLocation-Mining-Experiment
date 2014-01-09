@@ -10,6 +10,7 @@
 		1451BB9D1864478300BD635A /* Distributor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1451BB9C1864478300BD635A /* Distributor.m */; };
 		1451BBA0186451D400BD635A /* Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = 1451BB9F186451D400BD635A /* Hub.m */; };
 		1497F01B187AF14A00924759 /* ConsumerUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1497F01A187AF14A00924759 /* ConsumerUnit.m */; };
+		1497F01E187EAF9A00924759 /* Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1497F01D187EAF9A00924759 /* Factory.m */; };
 		14DEDD1C185F56F90052CA70 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14DEDD1B185F56F90052CA70 /* Foundation.framework */; };
 		14DEDD1E185F56F90052CA70 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14DEDD1D185F56F90052CA70 /* CoreGraphics.framework */; };
 		14DEDD20185F56F90052CA70 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14DEDD1F185F56F90052CA70 /* UIKit.framework */; };
@@ -27,7 +28,6 @@
 		14DEDD51185F5B790052CA70 /* GPSIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14DEDD4F185F5B790052CA70 /* GPSIcon@2x.png */; };
 		14DEDD52185F5B790052CA70 /* GPSIconSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14DEDD50185F5B790052CA70 /* GPSIconSelected@2x.png */; };
 		14DEDD55185F5F180052CA70 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DEDD54185F5F180052CA70 /* LocationManager.m */; };
-		14DEDD5D1860C1870052CA70 /* DeltaPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DEDD5C1860C1870052CA70 /* DeltaPoint.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +47,8 @@
 		1451BB9F186451D400BD635A /* Hub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hub.m; sourceTree = "<group>"; };
 		1497F019187AF14A00924759 /* ConsumerUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsumerUnit.h; sourceTree = "<group>"; };
 		1497F01A187AF14A00924759 /* ConsumerUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsumerUnit.m; sourceTree = "<group>"; };
+		1497F01C187EAF9A00924759 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
+		1497F01D187EAF9A00924759 /* Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Factory.m; sourceTree = "<group>"; };
 		14DEDD18185F56F90052CA70 /* Experiment1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Experiment1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14DEDD1B185F56F90052CA70 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14DEDD1D185F56F90052CA70 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -70,8 +72,6 @@
 		14DEDD50185F5B790052CA70 /* GPSIconSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GPSIconSelected@2x.png"; sourceTree = "<group>"; };
 		14DEDD53185F5F180052CA70 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		14DEDD54185F5F180052CA70 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
-		14DEDD5B1860C1870052CA70 /* DeltaPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeltaPoint.h; sourceTree = "<group>"; };
-		14DEDD5C1860C1870052CA70 /* DeltaPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeltaPoint.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,8 +194,6 @@
 		14DEDD57185F632D0052CA70 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				14DEDD5B1860C1870052CA70 /* DeltaPoint.h */,
-				14DEDD5C1860C1870052CA70 /* DeltaPoint.m */,
 				14DEDD53185F5F180052CA70 /* LocationManager.h */,
 				14DEDD54185F5F180052CA70 /* LocationManager.m */,
 				1451BB9B1864478300BD635A /* Distributor.h */,
@@ -204,6 +202,8 @@
 				1451BB9F186451D400BD635A /* Hub.m */,
 				1497F019187AF14A00924759 /* ConsumerUnit.h */,
 				1497F01A187AF14A00924759 /* ConsumerUnit.m */,
+				1497F01C187EAF9A00924759 /* Factory.h */,
+				1497F01D187EAF9A00924759 /* Factory.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -306,12 +306,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				14DEDD55185F5F180052CA70 /* LocationManager.m in Sources */,
+				1497F01E187EAF9A00924759 /* Factory.m in Sources */,
 				14DEDD2C185F56F90052CA70 /* AppDelegate.m in Sources */,
 				14DEDD4E185F57C70052CA70 /* MainViewController.m in Sources */,
 				14DEDD28185F56F90052CA70 /* main.m in Sources */,
 				1451BB9D1864478300BD635A /* Distributor.m in Sources */,
 				1497F01B187AF14A00924759 /* ConsumerUnit.m in Sources */,
-				14DEDD5D1860C1870052CA70 /* DeltaPoint.m in Sources */,
 				1451BBA0186451D400BD635A /* Hub.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

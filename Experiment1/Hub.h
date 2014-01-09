@@ -12,6 +12,7 @@
 #import "LocationManager.h"
 
 @class Distributor;
+@class Factory;
 
 @protocol HubDelegate <NSObject>
 
@@ -20,7 +21,9 @@
 
 @end
 
-@interface Hub : NSObject <LocationManagerDelegate>
+@interface Hub : NSObject <LocationManagerDelegate> {
+  Factory * factory;
+}
 
 
 @property (strong, nonatomic)LocationManager *locationManager;

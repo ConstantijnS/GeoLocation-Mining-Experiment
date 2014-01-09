@@ -8,7 +8,6 @@
 
 
 #import "LocationManager.h"
-#import "DeltaPoint.h"
 
 // Define the maximum amount of time that is allowed to pass between now and the most recent location update.
 #define kMaxRecentEventSeconds 5.0
@@ -30,8 +29,8 @@ static const double maxSpeed = 4.72223; // approx. 17 km/h
   if (self = [super init]) {
     
     // check if deltaPoint exists -> create.
-    if (_deltaPoint == nil) {
-      _deltaPoint = [[DeltaPoint alloc] init];
+    if (_deltapoint == nil) {
+      _deltapoint = [[NSMutableArray alloc] init];
     }
   }
   return self;
@@ -130,21 +129,16 @@ static const double maxSpeed = 4.72223; // approx. 17 km/h
         
         // assign delta's to deltaPoint north, south, west, east
         if (deltaLatitude > 0) {
-          _deltaPoint.north = deltaLatitude; // if deltaLatitude is positive, move is northwards.
+          _deltapoint[0] = [NSNumber numberWithDouble:deltaLatitude]; // if deltaLatitude is positive, move is northwards.
         } else {
-          _deltaPoint.south = deltaLatitude*-1; // if deltaLatitude is negative, move is southwards.
+          _deltapoint[2] = [NSNumber numberWithDouble:deltaLatitude*-1]; // if deltaLatitude is negative, move is southwards.
         }
         
         if (deltaLongitude > 0) {
-          _deltaPoint.east = deltaLongitude; // if deltaLongitude is positive, move is eastwards.
+          _deltapoint[1] = [NSNumber numberWithDouble:deltaLongitude]; // if deltaLongitude is positive, move is eastwards.
         } else {
-          _deltaPoint.west = deltaLongitude*-1; // if deltaLongitude is negative, move is westwards.
+          _deltapoint[3] = [NSNumber numberWithDouble:deltaLongitude*-1]; // if deltaLongitude is negative, move is westwards.
         }
-        
-        NSLog(@"deltapoint.north = %f", _deltaPoint.north);
-        NSLog(@"deltapoint.east = %f", _deltaPoint.east);
-        NSLog(@"deltapoint.south = %f", _deltaPoint.south);
-        NSLog(@"deltapoint.west = %f", _deltaPoint.west);
         
         // replace the previousLocation with the currentLocation
         _previousLocation = location;

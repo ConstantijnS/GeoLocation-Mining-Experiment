@@ -16,17 +16,9 @@
 
 @interface Distributor : NSObject
 
-@property (strong, nonatomic) NSNumber* gamepointN;
-@property (strong, nonatomic) NSNumber*  gamepointS;
-@property (strong, nonatomic) NSNumber*  gamepointE;
-@property (strong, nonatomic) NSNumber*  gamepointW;
-
-@property int gamepointNInt;
-@property int gamepointEInt;
-@property int gamepointSInt;
-@property int gamepointWInt;
+@property (strong, nonatomic) NSMutableArray * gamepoints; // ordered by N, E, S, W (resp. 0, 1, 2, 3)
 
 -(id) init;
--(void) deltapointConversion: (DeltaPoint *) aDeltapoint;
+-(void) deltapointConversion: (NSMutableArray *) deltapoint;
 -(void) saveData;
 @end

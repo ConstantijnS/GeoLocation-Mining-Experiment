@@ -13,24 +13,36 @@
 
 -(id) init {
   if (self= [super init]) {
-    _ratioN = 1; //default is 1;
-    _ratioE = 1;
-    _ratioS = 1;
-    _ratioW = 1;
+    _ratios = [[NSMutableArray alloc] init];
+    for ( int i = 0; i < 4; i++) {
+      _ratios[i] = [NSNumber numberWithInt:1]; // default = 1.
+    }
+    
+    _health = [NSNumber numberWithInt:20];
   }
   return self;
 }
 
 -(id) initWithRatioN:(int)N ratioE:(int)E ratioS:(int)S ratioW:(int)W {
   if (self = [super init]) {
-    _ratioN = N;
-    _ratioE = E;
-    _ratioS = S;
-    _ratioW = W;
+    NSNumber * ratioN = [NSNumber numberWithInt:N];
+    NSNumber * ratioE = [NSNumber numberWithInt:E];
+    NSNumber * ratioS = [NSNumber numberWithInt:S];
+    NSNumber * ratioW = [NSNumber numberWithInt:W];
+    
+    _ratios = [[NSMutableArray alloc] initWithObjects:ratioN, ratioE, ratioS, ratioW, nil];
+    
+    _health = [NSNumber numberWithInt:20];
   }
   return self;
 }
 
+-(void) reduceHealth: (int) amount {
+  int health = [_health intValue];
+  health -= amount;
+  _health = [NSNumber numberWithInt:health];
+  
+}
 
 
 @end

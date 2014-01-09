@@ -60,22 +60,22 @@
   
   // display gamepointN, E, S, W.
   labelN = [[UILabel alloc] initWithFrame:CGRectMake(150, 100, 300, 50)];
-  NSString *stringGamepointN = [NSString stringWithFormat:@"%@", _hub.distributor.gamepointN];
+  NSString *stringGamepointN = [NSString stringWithFormat:@"%@", _hub.distributor.gamepoints[0]];
   labelN.text = stringGamepointN;
   [self.view addSubview:labelN];
   
   labelE = [[UILabel alloc] initWithFrame:CGRectMake(250, 200, 300, 50)];
-  NSString *stringGamepointE = [NSString stringWithFormat:@"%@", _hub.distributor.gamepointE];
+  NSString *stringGamepointE = [NSString stringWithFormat:@"%@", _hub.distributor.gamepoints[1]];
   labelE.text = stringGamepointE;
   [self.view addSubview:labelE];
   
   labelS = [[UILabel alloc] initWithFrame:CGRectMake(150, 300, 300, 50)];
-  NSString *stringGamepointS = [NSString stringWithFormat:@"%@", _hub.distributor.gamepointS];
+  NSString *stringGamepointS = [NSString stringWithFormat:@"%@", _hub.distributor.gamepoints[2]];
   labelS.text = stringGamepointS;
   [self.view addSubview:labelS];
   
   labelW = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, 300, 50)];
-  NSString *stringGamepointW = [NSString stringWithFormat:@"%@", _hub.distributor.gamepointW];
+  NSString *stringGamepointW = [NSString stringWithFormat:@"%@", _hub.distributor.gamepoints[3]];
   labelW.text = stringGamepointW;
   [self.view addSubview:labelW];
   
@@ -86,6 +86,7 @@
   consume.frame = CGRectMake(150, 350, 100, 50);
   [consume addTarget:self action:@selector(consume) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:consume];
+  //**END TEST**
 
 }
 
@@ -112,9 +113,11 @@
   }
 }
 
+//**TEST**
 -(void) consume {
   [_hub nextTurn];
 }
+//**END TEST**
 
 #pragma mark Delegate methods
 
@@ -123,10 +126,10 @@
 }
 
 -(void) didUpdateGamepoints {
-  labelN.text = [NSString stringWithFormat:@"%@", _hub.distributor.gamepointN];
-  labelE.text = [NSString stringWithFormat:@"%@", _hub.distributor.gamepointE];
-  labelS.text = [NSString stringWithFormat:@"%@", _hub.distributor.gamepointS];
-  labelW.text = [NSString stringWithFormat:@"%@", _hub.distributor.gamepointW];
+  labelN.text = [NSString stringWithFormat:@"%@", _hub.distributor.gamepoints[0]];
+  labelE.text = [NSString stringWithFormat:@"%@", _hub.distributor.gamepoints[1]];
+  labelS.text = [NSString stringWithFormat:@"%@", _hub.distributor.gamepoints[2]];
+  labelW.text = [NSString stringWithFormat:@"%@", _hub.distributor.gamepoints[3]];
 }
 
 

@@ -7,7 +7,7 @@
 //
 //  The locationManager manages location information (GPS-coordinates). For every update in location
 //  the relative change since the previous event is calculated. The direction (north, south, east, west) of change
-//  is stored in a deltapoint object and stored in a property list when the app moves to the background.
+//  is stored in a deltapoint array and stored in a property list when the app moves to the background.
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
@@ -23,7 +23,7 @@
 
 @interface LocationManager : NSObject <CLLocationManagerDelegate>
 
-@property (strong, nonatomic) DeltaPoint *deltaPoint;
+@property (strong, nonatomic) NSMutableArray *deltapoint; // contains directions N, E, S, W (resp. 0, 1, 2, 3)
 @property (assign, nonatomic) id<LocationManagerDelegate>delegate;
 @property (strong, nonatomic) CLLocation *previousLocation;
 

@@ -7,8 +7,6 @@
 //
 
 #import "Distributor.h"
-#import "DeltaPoint.h"
-
 
 static const int kScale = 1000000;
 
@@ -16,6 +14,8 @@ static const int kScale = 1000000;
 
 - (id) init {
   if (self = [super init]) {
+    // initialize mutable array gamepoints.
+    _gamepoints = [[NSMutableArray alloc] init];
     
     NSString *errorDesc = nil;
     NSPropertyListFormat format;
@@ -28,14 +28,14 @@ static const int kScale = 1000000;
     if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
       NSMutableDictionary *rootObj = [NSMutableDictionary dictionaryWithCapacity:4];
       
-      _gamepointN = [NSNumber numberWithInt:0]; // default to 0
-      _gamepointE = [NSNumber numberWithInt:0];
-      _gamepointS = [NSNumber numberWithInt:0];
-      _gamepointW = [NSNumber numberWithInt:0];
+      // set gamepoints to default 0
+      for (int i = 0; i < 4; i++) {
+        _gamepoints[i] = [NSNumber numberWithInt:0]; // default to 0
+      }
       
       //assign gamepointN, -S, -E and -W to plist dictionary.
       rootObj = [NSMutableDictionary dictionaryWithObjects:
-                 [NSArray arrayWithObjects: _gamepointN, _gamepointE, _gamepointS, _gamepointW, nil]
+                 [NSArray arrayWithObjects: _gamepoints[0], _gamepoints[1], _gamepoints[2], _gamepoints[3], nil]
                                                    forKeys:[NSArray arrayWithObjects:@"gamepointN", @"gamepointE", @"gamepointS", @"gamepointW", nil]];
       // create plist xml file.
       id plist = [NSPropertyListSerialization dataFromPropertyList:(id)rootObj
@@ -60,46 +60,37 @@ static const int kScale = 1000000;
     }
     
     // assign saved values in plist of gamepointsN,-S,-E and -W.
-    _gamepointN = [temp objectForKey:@"gamepointN"];
-    _gamepointE = [temp objectForKey:@"gamepointE"];
-    _gamepointS = [temp objectForKey:@"gamepointS"];
-    _gamepointW = [temp objectForKey:@"gamepointW"];
+    _gamepoints[0] = [temp objectForKey:@"gamepointN"];
+    _gamepoints[1] = [temp objectForKey:@"gamepointE"];
+    _gamepoints[2] = [temp objectForKey:@"gamepointS"];
+    _gamepoints[3] = [temp objectForKey:@"gamepointW"];
     
-    // assign saved values to temp int gamepoint.
-    _gamepointNInt = [_gamepointN intValue];
-    _gamepointEInt = [_gamepointE intValue];
-    _gamepointSInt = [_gamepointS intValue];
-    _gamepointWInt = [_gamepointW intValue];
   }
   return self;
 }
 
--(void) deltapointConversion:(DeltaPoint *)aDeltapoint {
-  // scale deltapoints to gamepoints (* kScale)
-  double gamepointNDelta = kScale * aDeltapoint.north;
-  double gamepointSDelta = kScale * aDeltapoint.south;
-  double gamepointEDelta = kScale * aDeltapoint.east;
-  double gamepointWDelta = kScale * aDeltapoint.west;
+-(void) deltapointConversion:(NSMutableArray *) deltapoint {
+  int gamepointsInt[4];
+  double gamepoinsDelta[4];
+  int gamepointsDeltaInt[4];
   
-  // convert to int and divide with 100, add delta to existing gamepoints.
-  _gamepointNInt += ((int)gamepointNDelta)/100;
-  _gamepointEInt += ((int)gamepointEDelta)/100;
-  _gamepointSInt += ((int)gamepointSDelta)/100;
-  _gamepointWInt += ((int)gamepointWDelta)/100;
-  
-  NSLog(@"gamepointEInt = %i", _gamepointEInt);
-  
-  // assign to NSNumber gamepoint properties.
-  _gamepointN = [NSNumber numberWithInt:_gamepointNInt];
-  _gamepointS = [NSNumber numberWithInt:_gamepointSInt];
-  _gamepointE = [NSNumber numberWithInt:_gamepointEInt];
-  _gamepointW = [NSNumber numberWithInt:_gamepointWInt];
-  
-  NSLog(@"gamepointN: %@", _gamepointN);
-  NSLog(@"gamepointS: %@", _gamepointS);
-  NSLog(@"gamepointE: %@", _gamepointE);
-  NSLog(@"gamepointW: %@", _gamepointW);
-  
+  for (int i = 0; i < 4; i++) {
+    // scale deltapoint to gamepoints (* kScale)
+    gamepoinsDelta[i] = kScale * [deltapoint[i] doubleValue];
+    
+    // convert to int and divide by 100 (trick for round int to right size)
+    gamepointsDeltaInt[i] = ((int)gamepoinsDelta[i])/100;
+    
+    // create a temporary array of int from the _gamepoints NSNumbers.
+    gamepointsInt[i] = [_gamepoints[i] intValue];
+    
+    // update the gamepoints
+    gamepointsInt[i] += gamepointsDeltaInt[i];
+    
+    // assign the gamepoint to _gamepoint array.
+    _gamepoints[i] = [NSNumber numberWithInt:gamepointsInt[i]];
+  }
+
 }
 
 // This method is run by the AppDelegate when the app moves to the background.
@@ -113,7 +104,7 @@ static const int kScale = 1000000;
   
   // create dictionary
   NSMutableDictionary *plistDict = [NSMutableDictionary dictionaryWithObjects:
-                                    [NSArray arrayWithObjects: _gamepointN, _gamepointE, _gamepointS, _gamepointW, nil]
+                                    [NSArray arrayWithObjects: _gamepoints[0], _gamepoints[1], _gamepoints[2], _gamepoints[3], nil]
                                                                       forKeys:[NSArray arrayWithObjects: @"gamepointN", @"gamepointE", @"gamepointS", @"gamepointW", nil]];
   
   // create XML file based on plistDict
