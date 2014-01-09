@@ -36,7 +36,7 @@
     for (int i = 0; i < 3; i++) {
       ConsumerUnit * CU = factory.ConsumerUnits[i];
       for (int n = 0; n <4; n++) {
-        NSLog(@"CU %i ratio %i: %@", i ,i , CU.ratios[n]);
+        NSLog(@"CU %i ratio %i: %@", i ,n , CU.ratios[n]);
       }
     }
   }

@@ -30,16 +30,22 @@
   
 }
 
+// Factory checks health of CU's in array _ConsumerUnits.
 -(void) checkHealthCUs {
+  // initialize deathIndex array to store indexnumbers of CU's with health below 0.
   NSMutableArray *deathIndex = [[NSMutableArray alloc] init];
+  
+  //fast enumeration through _ConsumerUnits.
   for (ConsumerUnit * CU in _ConsumerUnits) {
     NSLog(@"CU %i health is %i", [_ConsumerUnits indexOfObject:CU], [CU.health intValue]);
+    // store index of CU with health <= 0 in deathIndex.
     if ([CU.health intValue] <= 0) {
       [deathIndex addObject:[NSNumber numberWithInt:[_ConsumerUnits indexOfObject:CU]]];
     }
   }
   
-  for (int i = 0; i < deathIndex.count; i++) {
+  //remove CU's from _ConsumerUnits-array for each index stored in deathArray.
+  for (int i = (deathIndex.count-1); i >= 0; i--) {
     [_ConsumerUnits removeObjectAtIndex:[deathIndex[i] intValue]];
     NSLog(@"CU %i died", [deathIndex[i] intValue]);
   }
